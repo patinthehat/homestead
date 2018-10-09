@@ -250,15 +250,15 @@ class Homestead
           s.args = [site['map'], site['to'], site['port'] ||= http_port, site['ssl'] ||= https_port, site['php'] ||= '7.2', params ||= '', site['zray'] ||= 'false', site['exec'] ||= 'false', headers ||= '']
 
           if site['zray'] == 'true'
-            config.vm.provision 'shell' do |s|
-              s.inline = 'ln -sf /opt/zray/gui/public ' + site['to'] + '/ZendServer'
-            end
-            config.vm.provision 'shell' do |s|
-              s.inline = 'ln -sf /opt/zray/lib/zray.so /usr/lib/php/20170718/zray.so'
-            end
-            config.vm.provision 'shell' do |s|
-              s.inline = 'ln -sf /opt/zray/zray.ini /etc/php/7.2/fpm/conf.d/zray.ini'
-            end
+            #config.vm.provision 'shell' do |s|
+            #  s.inline = 'ln -sf /opt/zray/gui/public ' + site['to'] + '/ZendServer'
+            #end
+            #config.vm.provision 'shell' do |s|
+            #  s.inline = 'ln -sf /opt/zray/lib/zray.so /usr/lib/php/20170718/zray.so'
+            #end
+            #config.vm.provision 'shell' do |s|
+            #  s.inline = 'ln -sf /opt/zray/zray.ini /etc/php/7.2/fpm/conf.d/zray.ini'
+            #end
           else
             config.vm.provision 'shell' do |s|
               s.inline = 'rm -rf ' + site['to'] + '/ZendServer'
@@ -517,10 +517,10 @@ class Homestead
   end
 
   def self.backup_postgres(database, dir, config)
-    now = Time.now.strftime("%Y%m%d%H%M")
-    config.trigger.before :destroy do |trigger|
-      trigger.warn = "Backing up postgres database #{database}..."
-      trigger.run_remote = { inline: "mkdir -p #{dir} && echo localhost:5432:#{database}:homestead:secret > ~/.pgpass && chmod 600 ~/.pgpass && pg_dump -U homestead -h localhost #{database} > #{dir}/#{database}-#{now}.sql" }
-    end
+    #now = Time.now.strftime("%Y%m%d%H%M")
+    #config.trigger.before :destroy do |trigger|
+    #  trigger.warn = "Backing up postgres database #{database}..."
+    #  #trigger.run_remote = { inline: "mkdir -p #{dir} && echo localhost:5432:#{database}:homestead:secret > ~/.pgpass && chmod 600 ~/.pgpass && pg_dump -U homestead -h localhost #{database} > #{dir}/#{database}-#{now}.sql" }
+    #end
   end
 end
